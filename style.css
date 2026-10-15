@@ -507,6 +507,90 @@ main {
 .about-text p { margin-bottom: 15px; }
 
 
+/**
+ * #technologies
+ */
+
+.technologies { margin-bottom: 35px; }
+
+.technologies-title { margin-bottom: 20px; }
+
+.technologies-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 18px;
+}
+
+.technology-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 64px;
+  cursor: default;
+}
+
+.technology-logo,
+.technology-name {
+  width: 56px;
+  height: 56px;
+}
+
+.technology-logo {
+  object-fit: contain;
+  transition: var(--transition-1);
+}
+
+.technology-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white-2);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-600);
+  text-align: center;
+  transition: var(--transition-1);
+}
+
+.technology-item:hover .technology-logo,
+.technology-item:hover .technology-name,
+.technology-item:focus-visible .technology-logo,
+.technology-item:focus-visible .technology-name {
+  transform: scale(1.12);
+}
+
+.technology-item::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  padding: 4px 8px;
+  color: var(--white-2);
+  background: var(--onyx);
+  border: 1px solid var(--jet);
+  border-radius: 5px;
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -4px);
+  transition: var(--transition-1);
+  z-index: 2;
+}
+
+.technology-item:hover::after,
+.technology-item:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.technology-item:focus-visible {
+  outline: 2px solid var(--orange-yellow-crayola);
+  outline-offset: 5px;
+}
+
+
 
 /**
  * #service 
@@ -1376,6 +1460,8 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .about-text { margin-bottom: 40px; }
 
+  .technologies-list { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
   /* service */
 
   .service-item {
@@ -1712,6 +1798,8 @@ textarea.form-input::-webkit-resizer { display: none; }
     grid-template-columns: 1fr 1fr;
     gap: 20px 25px;
   }
+
+  .technologies-list { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 
   /* testimonials */
 
