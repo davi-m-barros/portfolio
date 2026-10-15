@@ -156,4 +156,52 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
 
   });
+
 }
+
+
+
+// certificate modal variables
+const certificateItems = document.querySelectorAll("[data-certificate-item]");
+const certificateModalContainer = document.querySelector("[data-certificate-modal-container]");
+const certificateModalOverlay = document.querySelector("[data-certificate-modal-overlay]");
+const certificateModalClose = document.querySelector("[data-certificate-modal-close]");
+const certificateModalDocument = document.querySelector("[data-certificate-modal-document]");
+const certificateModalCategory = document.querySelector("[data-certificate-modal-category]");
+const certificateModalYear = document.querySelector("[data-certificate-modal-year]");
+const certificateModalTitle = document.querySelector("[data-certificate-modal-title]");
+const certificateModalText = document.querySelector("[data-certificate-modal-text]");
+
+const closeCertificateModal = function () {
+  certificateModalContainer.classList.remove("active");
+  certificateModalDocument.removeAttribute("src");
+  document.body.classList.remove("certificate-modal-open");
+};
+
+for (let i = 0; i < certificateItems.length; i++) {
+  certificateItems[i].addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const certificateMeta = this.querySelector(".certificate-meta");
+    const certificateCategory = certificateMeta.querySelector(".certificate-category");
+    const certificateYear = certificateMeta.querySelector("time");
+
+    certificateModalDocument.src = `${this.href}#toolbar=1&navpanes=0`;
+    certificateModalCategory.textContent = certificateCategory.textContent;
+    certificateModalYear.textContent = certificateYear.textContent;
+    certificateModalYear.dateTime = certificateYear.dateTime;
+    certificateModalTitle.textContent = this.querySelector(".certificate-item-title").textContent;
+    certificateModalText.textContent = this.querySelector(".certificate-text").textContent;
+    certificateModalContainer.classList.add("active");
+    document.body.classList.add("certificate-modal-open");
+  });
+}
+
+certificateModalClose.addEventListener("click", closeCertificateModal);
+certificateModalOverlay.addEventListener("click", closeCertificateModal);
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && certificateModalContainer.classList.contains("active")) {
+    closeCertificateModal();
+  }
+});
