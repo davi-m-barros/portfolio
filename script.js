@@ -175,6 +175,7 @@ const certificateModalText = document.querySelector("[data-certificate-modal-tex
 const closeCertificateModal = function () {
   certificateModalContainer.classList.remove("active");
   certificateModalDocument.removeAttribute("src");
+  document.body.style.paddingRight = "";
   document.body.classList.remove("certificate-modal-open");
 };
 
@@ -192,6 +193,7 @@ for (let i = 0; i < certificateItems.length; i++) {
     certificateModalYear.dateTime = certificateYear.dateTime;
     certificateModalTitle.textContent = this.querySelector(".certificate-item-title").textContent;
     certificateModalText.textContent = this.querySelector(".certificate-text").textContent;
+    document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
     certificateModalContainer.classList.add("active");
     document.body.classList.add("certificate-modal-open");
   });
