@@ -166,6 +166,7 @@ const certificateItems = document.querySelectorAll("[data-certificate-item]");
 const certificateModalContainer = document.querySelector("[data-certificate-modal-container]");
 const certificateModalOverlay = document.querySelector("[data-certificate-modal-overlay]");
 const certificateModalClose = document.querySelector("[data-certificate-modal-close]");
+const certificateModal = document.querySelector(".certificate-modal");
 const certificateModalDocument = document.querySelector("[data-certificate-modal-document]");
 const certificateModalCategory = document.querySelector("[data-certificate-modal-category]");
 const certificateModalYear = document.querySelector("[data-certificate-modal-year]");
@@ -174,9 +175,9 @@ const certificateModalText = document.querySelector("[data-certificate-modal-tex
 
 const closeCertificateModal = function () {
   certificateModalContainer.classList.remove("active");
+  certificateModalOverlay.classList.remove("active");
+  certificateModal.classList.remove("active");
   certificateModalDocument.removeAttribute("src");
-  document.body.style.paddingRight = "";
-  document.body.classList.remove("certificate-modal-open");
 };
 
 for (let i = 0; i < certificateItems.length; i++) {
@@ -193,17 +194,56 @@ for (let i = 0; i < certificateItems.length; i++) {
     certificateModalYear.dateTime = certificateYear.dateTime;
     certificateModalTitle.textContent = this.querySelector(".certificate-item-title").textContent;
     certificateModalText.textContent = this.querySelector(".certificate-text").textContent;
-    document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
     certificateModalContainer.classList.add("active");
-    document.body.classList.add("certificate-modal-open");
+    certificateModalOverlay.classList.add("active");
+    certificateModal.classList.add("active");
   });
 }
 
 certificateModalClose.addEventListener("click", closeCertificateModal);
 certificateModalOverlay.addEventListener("click", closeCertificateModal);
 
+// project modal variables
+const projectItems = document.querySelectorAll("[data-project-item]");
+const projectModalContainer = document.querySelector("[data-project-modal-container]");
+const projectModalOverlay = document.querySelector("[data-project-modal-overlay]");
+const projectModalClose = document.querySelector("[data-project-modal-close]");
+const projectModal = document.querySelector(".project-modal");
+const projectModalImage = document.querySelector("[data-project-modal-image]");
+const projectModalTitle = document.querySelector("[data-project-modal-title]");
+const projectModalText = document.querySelector("[data-project-modal-text]");
+
+const closeProjectModal = function () {
+  projectModalContainer.classList.remove("active");
+  projectModalOverlay.classList.remove("active");
+  projectModal.classList.remove("active");
+  projectModalImage.removeAttribute("src");
+};
+
+for (let i = 0; i < projectItems.length; i++) {
+  projectItems[i].addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const projectImage = this.querySelector("img");
+    projectModalImage.src = projectImage.src;
+    projectModalImage.alt = projectImage.alt;
+    projectModalTitle.textContent = this.querySelector(".project-title").textContent;
+    projectModalText.textContent = "Project description placeholder.";
+    projectModalContainer.classList.add("active");
+    projectModalOverlay.classList.add("active");
+    projectModal.classList.add("active");
+  });
+}
+
+projectModalClose.addEventListener("click", closeProjectModal);
+projectModalOverlay.addEventListener("click", closeProjectModal);
+
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && certificateModalContainer.classList.contains("active")) {
     closeCertificateModal();
+  }
+
+  if (event.key === "Escape" && projectModalContainer.classList.contains("active")) {
+    closeProjectModal();
   }
 });
