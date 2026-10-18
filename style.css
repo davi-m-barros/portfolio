@@ -1315,14 +1315,15 @@ main {
 /* project modal */
 
 .project-modal {
-  width: min(600px, 100%);
+  width: max(min(600px, 100%), 67%);
   overflow: hidden;
+  margin: auto 12px;
   padding: 0;
 }
 
 .project-modal-image-box {
   width: 100%;
-  height: 260px;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -1694,8 +1695,12 @@ textarea.form-input::-webkit-resizer { display: none; }
   /* testimonials modal */
 
   .modal-container,
-  .certificate-modal-container,
-  .project-modal-container { padding: 20px; }
+  .certificate-modal-container { padding: 20px; }
+
+  .project-modal-container { 
+    align-items: flex-start;
+    padding: 2.5% 0px; 
+  }
 
   .testimonials-modal {
     display: flex;
