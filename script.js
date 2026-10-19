@@ -212,12 +212,14 @@ const projectModal = document.querySelector(".project-modal");
 const projectModalImage = document.querySelector("[data-project-modal-image]");
 const projectModalTitle = document.querySelector("[data-project-modal-title]");
 const projectModalText = document.querySelector("[data-project-modal-text]");
+const projectModalVideos = document.querySelector("[data-project-modal-videos]");
 
 const closeProjectModal = function () {
   projectModalContainer.classList.remove("active");
   projectModalOverlay.classList.remove("active");
   projectModal.classList.remove("active");
   projectModalImage.removeAttribute("src");
+  projectModalVideos.innerHTML = "";
 };
 
 for (let i = 0; i < projectItems.length; i++) {
@@ -228,7 +230,9 @@ for (let i = 0; i < projectItems.length; i++) {
     projectModalImage.src = projectImage.src;
     projectModalImage.alt = projectImage.alt;
     projectModalTitle.textContent = this.querySelector(".project-title").textContent;
-    projectModalText.textContent = "Project description placeholder.";
+    projectModalText.innerHTML = this.querySelector("[data-project-description]").innerHTML;
+    const projectVideos = this.querySelector("[data-project-videos]");
+    projectModalVideos.innerHTML = projectVideos ? projectVideos.innerHTML : "";
     projectModalContainer.classList.add("active");
     projectModalOverlay.classList.add("active");
     projectModal.classList.add("active");
