@@ -631,7 +631,11 @@ main {
 
 .interests-icon-box { margin-bottom: 10px; }
 
-.interests-icon-box img { margin: auto; }
+.interests-icon-box ion-icon {
+  margin: auto;
+  color: var(--orange-yellow-crayola);
+  font-size: 40px;
+}
 
 .interests-content-box { text-align: center; }
 
