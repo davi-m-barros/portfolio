@@ -3,13 +3,6 @@
 \*-----------------------------------*/
 
 
-/**
- * copyright 2022 @codewithsadee
- */
-
-
-
-
 
 /*-----------------------------------*\
   #CUSTOM PROPERTY
@@ -1147,8 +1140,6 @@ main {
 }
 
 .project-modal-text p + p { margin-top: 12px; }
-
-.project-modal-videos:empty { display: none; }
 
 .project-modal-video { margin-top: 24px; }
 
