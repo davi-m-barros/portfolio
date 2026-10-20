@@ -101,24 +101,37 @@ for (let i = 0; i < formInputs.length; i++) {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
+const showPage = function (pageName) {
+  const page = Array.from(pages).find((item) => item.dataset.page === pageName);
+  const pageToShow = page ? page.dataset.page : "portfolio";
+
+  for (let i = 0; i < pages.length; i++) {
+    pages[i].classList.toggle("active", pages[i].dataset.page === pageToShow);
+  }
+
+  for (let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].classList.toggle(
+      "active",
+      navigationLinks[i].textContent.trim().toLowerCase() === pageToShow
+    );
+  }
+
+  window.scrollTo(0, 0);
+};
+
+// Keep the selected page in the URL so it survives refreshes and can be shared.
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
-
+    const pageName = this.textContent.trim().toLowerCase();
+    window.location.hash = pageName;
   });
-
 }
+
+window.addEventListener("hashchange", function () {
+  showPage(window.location.hash.slice(1).toLowerCase());
+});
+
+showPage(window.location.hash.slice(1).toLowerCase());
 
 
 

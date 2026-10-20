@@ -727,8 +727,10 @@ main {
 
 .skills-list { 
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
+  margin-left: 45px;
+  margin-right: 45px;
   margin-bottom: 10px;
 }
 
@@ -1500,7 +1502,10 @@ textarea.form-input::-webkit-resizer { display: none; }
    * #RESUME
    */
 
-  .timeline-list { margin-left: 65px; }
+  .timeline-list { 
+    margin-left: 65px;
+    margin-right: 65px;
+  }
 
   .timeline-item:not(:last-child)::before { left: -40px; }
 
@@ -1508,6 +1513,11 @@ textarea.form-input::-webkit-resizer { display: none; }
     height: 8px;
     width: 8px;
     left: -43px;
+  }
+
+  .skills-list {
+    margin-left: 65px;
+    margin-right: 65px;
   }
 
   /**
@@ -1731,6 +1741,12 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .project-list { grid-template-columns: repeat(3, 1fr); }
 
+
+
+  /**
+   * RESUME
+   */
+  .skills-list { grid-template-columns: repeat(3, 1fr); }
 
 
   /**
