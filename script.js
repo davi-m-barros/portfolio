@@ -186,6 +186,7 @@ const projectModal = document.querySelector(".project-modal");
 const projectModalImage = document.querySelector("[data-project-modal-image]");
 const projectModalTitle = document.querySelector("[data-project-modal-title]");
 const projectModalText = document.querySelector("[data-project-modal-text]");
+const projectModalAppStoreBadge = document.querySelector("[data-project-modal-app-store-badge-link]");
 
 const closeProjectModal = function () {
   projectModalContainer.classList.remove("active");
@@ -193,6 +194,9 @@ const closeProjectModal = function () {
   projectModal.classList.remove("active");
   projectModalImage.removeAttribute("src");
   projectModalText.innerHTML = "";
+  projectModalAppStoreBadge.href = "";
+  projectModalAppStoreBadge.setAttribute("aria-label", "Download this project on the App Store");
+  projectModalAppStoreBadge.hidden = true;
 };
 
 for (let i = 0; i < projectItems.length; i++) {
@@ -203,7 +207,18 @@ for (let i = 0; i < projectItems.length; i++) {
     projectModalImage.src = projectImage.src;
     projectModalImage.alt = projectImage.alt;
     projectModalTitle.textContent = this.querySelector(".project-title").textContent;
-    projectModalText.innerHTML = this.querySelector("[data-project-modal]").innerHTML;
+    const projectModalDetails = this.querySelector("[data-project-modal]");
+    const projectAppStoreBadge = projectModalDetails.querySelector("[data-project-app-store-badge]");
+    if (projectAppStoreBadge) {
+      projectModalAppStoreBadge.href = projectAppStoreBadge.getAttribute("data-app-store-url") || "";
+      projectModalAppStoreBadge.setAttribute("aria-label", projectAppStoreBadge.getAttribute("aria-label") || "Download this project on the App Store");
+      projectModalAppStoreBadge.hidden = false;
+    } else {
+      projectModalAppStoreBadge.href = "";
+      projectModalAppStoreBadge.setAttribute("aria-label", "Download this project on the App Store");
+      projectModalAppStoreBadge.hidden = true;
+    }
+    projectModalText.innerHTML = projectModalDetails.innerHTML;
     projectModalContainer.classList.add("active");
     projectModalOverlay.classList.add("active");
     projectModal.classList.add("active");
@@ -212,6 +227,11 @@ for (let i = 0; i < projectItems.length; i++) {
 
 projectModalClose.addEventListener("click", closeProjectModal);
 projectModalOverlay.addEventListener("click", closeProjectModal);
+projectModalAppStoreBadge.addEventListener("click", function (event) {
+  if (!this.getAttribute("href")) {
+    event.preventDefault();
+  }
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && certificateModalContainer.classList.contains("active")) {
