@@ -207,7 +207,7 @@ for (let i = 0; i < projectItems.length; i++) {
     projectModalImage.src = projectImage.src;
     projectModalImage.alt = projectImage.alt;
     projectModalTitle.textContent = this.querySelector(".project-title").textContent;
-    const projectModalDetails = this.querySelector("[data-project-modal]");
+    const projectModalDetails = this.closest(".project-item").querySelector("[data-project-modal]");
     const projectAppStoreBadge = projectModalDetails.querySelector("[data-project-app-store-badge]");
     if (projectAppStoreBadge) {
       projectModalAppStoreBadge.href = projectAppStoreBadge.getAttribute("data-app-store-url") || "";
@@ -231,6 +231,30 @@ projectModalAppStoreBadge.addEventListener("click", function (event) {
   if (!this.getAttribute("href")) {
     event.preventDefault();
   }
+});
+
+projectModalText.addEventListener("click", function (event) {
+  const resourceCard = event.target.closest(".resources-item");
+  if (!resourceCard) {
+    return;
+  }
+
+  event.stopPropagation();
+
+  const githubUrl = resourceCard.dataset.githubUrl;
+  if (githubUrl) {
+    window.open(githubUrl, "_blank", "noopener,noreferrer");
+  }
+});
+
+projectModalText.addEventListener("keydown", function (event) {
+  const resourceCard = event.target.closest(".resources-item");
+  if (!resourceCard || (event.key !== "Enter" && event.key !== " ")) {
+    return;
+  }
+
+  event.preventDefault();
+  resourceCard.click();
 });
 
 document.addEventListener("keydown", function (event) {
